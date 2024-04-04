@@ -1,6 +1,6 @@
-# Nombre del script (aqui) y una breve descripcion ♡♡♡
+#  Count ATGC 
 
-Descripción del script
+Este es un script de Python diseñado para leer un archivo que contenga una secuencia de un genoma y contar todas "A", "T", "G" y "C2 que tenga dicha secuencia.
 
 ## Uso
 
@@ -8,7 +8,7 @@ Intrucciones de uso del script
 
 ## Salida
 
- Acción de salida
+ El script imprimira en pantalla el número total de cada nucleótido.
 
 ## Control de errores
 
