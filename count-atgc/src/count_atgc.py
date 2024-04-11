@@ -62,5 +62,4 @@ with open(archivo, 'r') as f:
 # Obtenemos la frecuencia de aparicion de cad aletra.
 print(f"El total por base es: A:{ADN.count('A')} C:{ADN.count('C')} T:{ADN.count('T')} G:{ADN.count('G')}")
 
-# En general tú código está muy bien.
 ```
