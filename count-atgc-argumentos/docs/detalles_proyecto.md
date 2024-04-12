@@ -31,33 +31,34 @@ Requisitos no funcionales
 Para resolver este problema, se utilizarán varias funciones incorporadas en Python, así como el manejo de excepciones para la validación de datos y archivo. A continuación, se muestra un pseudocódigo simple para ilustrar la lógica básica del script:
 
 ```
-def contar_ocurrencias_letras(archivo):
-    ocurrencias = {'A': 0, 'T': 0, 'C': 0, 'G': 0}
-    with open(archivo, 'r') as f:
-        for linea in f:
-            for letra in linea:
-                if letra.upper() in ocurrencias:
-                    ocurrencias[letra.upper()] += 1
-    return ocurrencias
+import argparse
+import os
 
-def main():
-    nombre_archivo = input("Por favor, introduce el nombre del archivo: ")
-    try:
-        resultado = contar_ocurrencias_letras(nombre_archivo)
-        print("Ocurrencias de las letras en el archivo:")
-        for letra, cantidad in resultado.items():
-            print(f"{letra}: {cantidad}")
-    except FileNotFoundError:
-        print("El archivo no se encontró.")
-    except Exception as e:
-        print("Ocurrió un error:", e)
+parser = argparse.ArgumentParser(description="Lee el archivo de entrada y salida")
 
-if __name__ == "__main__":
-    main()
+#Se agrega un argumento posicional para el archivo de entrada.
+
+parser.add_argument("input_file", type=str, help ="El archivo de texto que se quiere procesar.")
+
+#Se agrega un argumento opcional para el archivo de salida.
+#"out.txt" como nombre de archivo por defecto.
+parser.add_argument ("-n", "--nucleotide", type=str, choices=["A","T", "G", "C"], default="ATGC", help='El o los nucleótidos que quieras contar, por default son ATGC')
+
+
+args=parser.parse_args()
+
+if not os.path.exists(args.input_file):
+    print("El archivo de entrada especificado no existe.")
+    exit()
+
+with open(args.input_file, 'r') as f:
+        DNA = f.read()
+print(f"El total por base es: A:{DNA.count('A')} C:{DNA.count('C')} T:{DNA.count('T')} G:{DNA.count('G')}")
+
 
 ```
 
-Èl formatp de los datos será simplemente un archivo.
+Èl formato de los datos será simplemente un archivo.
 
 
 #### Caso de uso
@@ -71,9 +72,9 @@ if __name__ == "__main__":
                  | 1. Proporciona archivo de entrada
                  v
          +-------+-------+
-         |   Sumador de  |
-         |   Números en  |
-         |   Archivo     |
+         |   Contador de |
+         |  nucleótidos  |
+         |   en Archivo  |
          | (Sistema)     |
          +---------------+
 ```
