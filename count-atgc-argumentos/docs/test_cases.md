@@ -15,7 +15,6 @@ A continuación, se presentan los detalles de los casos d prueba.
 			- G: 5
 			- C: 5
 
-
 ### Caso de prueba 2: Comprobación de error para letras distintas de los nucleótidos
 
 - Descripción: Verificar que el script maneja correctamente los datos que son distintos a "A", "T", "G", "C".
