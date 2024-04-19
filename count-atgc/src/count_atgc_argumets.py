@@ -1,4 +1,4 @@
-'''
+"""""
 Count ATGC with arguments 
        
 VERSION
@@ -35,7 +35,7 @@ SEE ALSO
 
 
 ALL
-
+"""
 # ===========================================================================
 # =                           libreria
 # ===========================================================================
@@ -73,6 +73,3 @@ with open(args.input_file, 'r') as f:
         DNA = f.read()
 print(f"El total por base es: A:{DNA.count('A')} C:{DNA.count('C')} T:{DNA.count('T')} G:{DNA.count('G')}")
 
-
-
-````
