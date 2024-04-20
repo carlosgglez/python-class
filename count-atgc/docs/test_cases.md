@@ -20,10 +20,16 @@ A continuación, se presentan los detalles de los casos d prueba.
 
 - Descripción: Verificar que el script maneja correctamente los datos que son distintos a "A", "T", "G", "C".
 - Datos de entrada: Archivo con los siguientes datos "esternocleidomastoideo, 15677"
-- Resultado esperado: Ocurrio un error
+- Resultado esperado: "El archivo test.txt contiene caracteres diferentes: esternocleidomastoideo, 15677
 
 
-### Caso de prueba 3: Comprobación de error para rchivo no existente
+### Caso de prueba 3: Comprobación de error para archivo no existente
 - Descripción: Verificar que el script maneja correctamente los archivos no existentes.
 - Datos de entrada: Ruta a un archivo que no existe.
-- Resultado esperado: El archivo no se encontró
+- Resultado esperado: El archivo test.txt no existe.
+
+
+### Caso de prueba 4: Comprobación de error para un archivo vacio
+- Descripción: Verificar que el script maneja correctamente los archivos vacios.
+- Datos de entrada: Ruta a un archivo vacio.
+- Resultado esperado: El archivo test.txt esta vacio.
