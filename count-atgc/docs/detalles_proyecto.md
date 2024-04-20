@@ -1,6 +1,6 @@
 # Count ATGC
 
-Fecha: 04/04/2024
+Fecha: 19/04/2024
 
 **Participantes**:
 
@@ -15,10 +15,11 @@ El problema enunciado implica leer los nucleótidos de un archivo, contar cuanta
 
 Requisitos funcionales
 
-- Leer los nucleótidos de un archivo dado, solo si estan en mayusculas
+- Leer los nucleótidos de un archivo dado, no importa si estan en mayusculas o minusculas
 - Calcular las repeticiones de cada nucleótido
 - Desplegar un mensaje de error si el archivo no existe
 - Desplegar un mensaje de error si los datos de entrada estan en otro formato
+- Desplegar un mensaje de error si el archivo esta vacio
 
 Requisitos no funcionales
 
@@ -30,34 +31,80 @@ Requisitos no funcionales
 
 Para resolver este problema, se utilizarán varias funciones incorporadas en Python, así como el manejo de excepciones para la validación de datos y archivo. A continuación, se muestra un pseudocódigo simple para ilustrar la lógica básica del script:
 
-```
-def contar_ocurrencias_letras(archivo):
-    ocurrencias = {'A': 0, 'T': 0, 'C': 0, 'G': 0}
-    with open(archivo, 'r') as f:
-        for linea in f:
-            for letra in linea:
-                if letra.upper() in ocurrencias:
-                    ocurrencias[letra.upper()] += 1
-    return ocurrencias
+"""
+import argparse
 
-def main():
-    nombre_archivo = input("Por favor, introduce el nombre del archivo: ")
-    try:
-        resultado = contar_ocurrencias_letras(nombre_archivo)
-        print("Ocurrencias de las letras en el archivo:")
-        for letra, cantidad in resultado.items():
-            print(f"{letra}: {cantidad}")
-    except FileNotFoundError:
-        print("El archivo no se encontró.")
-    except Exception as e:
-        print("Ocurrió un error:", e)
+parser = argparse.ArgumentParser(description="Lee el archivo de entrada y salida")
 
-if __name__ == "__main__":
-    main()
+#Se agrega un argumento posicional para el archivo de entrada.
 
-```
+parser.add_argument("input_file", type=str, help ="El archivo de texto que se quiere procesar.")
 
-Èl formatp de los datos será simplemente un archivo.
+#Se agrega un argumento opcional para que selecione los nuceótidos que eliga el usuario
+#ATGC como los nucleótidos determinados por defecto.
+parser.add_argument ("-n", "--nucleotide", type=str, choices=["A","T", "G", "C"], default="ATGC", help='El o los nucleótidos que quieras contar, por default son ATGC')
+
+
+args=parser.parse_args()
+
+#Definición de una excepción especial para el programa
+class FileEmptyError(Exception):
+    def __init__(self, input_file):
+        self.input_file = input_file
+        self.message = (f"El archivo {input_file} está vacío")
+        super().__init__(self.message)
+
+
+#Se crean las listas nucleotios, nnucleotidos y caracteres_incorrectos con la finalidad de pode buscar caracteres incorrectos 
+nucleotidos=["A", "T", "G", "C"]
+nnucleotidos=["a", "t", "g", "c"]
+caracteres_incorrectos=[]
+
+#Try usado para agregar las excepciones necesarias 
+try:
+    with open(args.input_file, 'r') as f:
+        DNA = f.read()
+
+    if  DNA==None: #Si el archivo esta vacio entra a este if que tiene la función de crea una nueva excepcion
+        raise FileEmptyError(f"{args.input_file}")
+
+    
+    for nucleotido in DNA: #for usado para revisar que todos los caracteres del archivo son correctos, si no es así los guarda en una lista vacia
+        if nucleotido not in nucleotidos and nnucleotidos:
+            caracteres_incorrectos.append(nucleotido)
+
+    if caracteres_incorrectos: #if usado para imprimir los caracteres incorrectos
+        print(f"El archivo {args.input_file} contiene caracteres diferentes: {' '.join(caracteres_incorrectos)}")
+        
+    
+
+except FileNotFoundError: #Excepción si no se encuentra el archivo
+    print(f"El archivo {args.input_file} no existe")
+    exit()
+
+except FileEmptyError as e: #Excepción creada para archivos vacios
+    print (e)
+    exit()
+
+    if args.nucleotide=="A":
+        print(f"El total de Adeninas es:{DNA.upper().count('A')}") 
+    
+if args.nucleotide=="T":
+    print(f"El total de Timinas es:{DNA.upper().count('T')}")
+
+if args.nucleotide=="G":
+    print(f"El total de guaninas es:{DNA.upper().count('G')}")
+
+if args.nucleotide=="C":
+    print(f"El total de citocinas es:{DNA.upper().count('C')}")
+
+if args.nucleotide=="ATGC":
+    print(f"El total de cada base es: A:{DNA.upper().count('A')} C:{DNA.upper().count('C')} T:{DNA.upper().count('T')} G:{DNA.upper().count('G')}")
+
+
+"""
+
+El formatp de los datos será simplemente un archivo.
 
 
 #### Caso de uso
@@ -71,9 +118,8 @@ if __name__ == "__main__":
                  | 1. Proporciona archivo de entrada
                  v
          +-------+-------+
-         |   Sumador de  |
-         |   Números en  |
-         |   Archivo     |
+         |  Contador de  |
+         | nucleotidos   |
          | (Sistema)     |
          +---------------+
 ```
@@ -90,5 +136,5 @@ if __name__ == "__main__":
 - **Flujos alternativos**:
         - Si el archivo proporcionado no existe
                 1. El sistema muestra un mensaje de error.
-        - Si los datos de entrada no son nucleótidos en mayusculas
+        - Si los datos de entrada no son nucleotidos
                 1. El sistema muestra un mensaje de error.
