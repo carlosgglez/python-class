@@ -1,22 +1,29 @@
 #  Count ATGC 
 
-Este es un script de Python diseñado para leer un archivo que contenga una secuencia de un genoma y contar todas "A", "T", "G" y "C2 que tenga dicha secuencia.
+Este es un script de Python diseñado para leer un archivo, el que sea de su interes, que contenga una secuencia de un genoma y contar todas "A", "T", "G" y "C" que tenga dicha secuencia.
 
 ## Uso
 
-El script acepta que se introduzca el nombre del archivo para poder abrirlo.
+El script acepta que se introduzca el nombre del archivo para poder abrirlo y permite establecer el nombre para un archivo de salida o por default sera "output.txt".
 
 ```
-nombre_archivo = input("Por favor, introduce el nombre del archivo: ")
-    try:
-        resultado = contar_ocurrencias_letras(nombre_archivo)
-```
+parser = argparse.ArgumentParser(description="Lee el archivo de entrada y salida")
 
+#Se agrega un argumento posicional para el archivo de entrada.
+
+parser.add_argument("input_file", type=str, help ="El archivo de texto que se quiere procesar.")
+
+#Se agrega un argumento opcional para el archivo de salida.
+#"out.txt" como nombre de archivo por defecto.
+parser.add_argument ("-o", "--output", type=str, default="out.txt", help='El archivo en el cual se guardara la salida del programa, por defecto se llama "out.txt"')
+
+```
 
 
 ## Salida
 
- El script imprimira en pantalla el número total de cada nucleótido.
+El script creara un archivo en el cual contendra la frecuencia de apariciones de cada nucleotido.
+El archivo de salida puede ser nombrado como gustes, o por default sera "output.txt".
 
 ## Control de errores
 
