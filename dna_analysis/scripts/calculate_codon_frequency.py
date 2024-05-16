@@ -14,13 +14,17 @@ Argumentos:
 '''
 
 import argparse
-from utils.file_io import read_dna_sequence
-from operations.codon_frequency import calculate_codon_frequency
+import sys
 
+sys.path.append("/Users/garci/Desktop/La LCG me va a matar/Segundo semestre/Python/python-class/dna_analysis/utils")
+sys.path.append("/Users/garci/Desktop/La LCG me va a matar/Segundo semestre/Python/python-class/dna_analysis/operations")
+
+from file_io import read_dna_sequence
+from codon_frequency import calculate_codon_frequency
 
 parser = argparse.ArgumentParser(description = "Script que calcula la frecuencia de codones")
 
-parser.add_argument("--input_file",
+parser.add_argument("-i", "--input_file",
                     type = str,
                     help = "Nombre del archivo a evaluar")
 
