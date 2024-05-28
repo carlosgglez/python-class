@@ -54,7 +54,7 @@ parser = argparse.ArgumentParser(description="Lee el archivo de entrada y salida
 
 #Se agrega un argumento posicional para el archivo de entrada.
 
-parser.add_argument("input_file", type=str, help ="El archivo de texto que se quiere procesar.")
+parser.add_argument("input_file", type=str, help ="El archivo de texto que se quiere procesar.", required = True)
 
 #Se agrega un argumento opcional para que selecione los nuceótidos que eliga el usuario
 #ATGC como los nucleótidos determinados por defecto.
